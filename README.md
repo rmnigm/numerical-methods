@@ -1,2 +1,3 @@
 # numerical-methods
-Repository with implementations of numerical algorithms on Python / C++, used in homework for Numerical Methods course in HSE University Applied Math BSc.
+This is a repository containing numerical algorithms, written in Python and C++.
+They are used in homework for Numerical Methods course in 3rd year of Applied Math undergraduate program in HSE University.
