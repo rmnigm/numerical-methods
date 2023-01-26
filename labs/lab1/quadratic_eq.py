@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding: utf-8
+
 import numpy as np
 
 coefficients = np.array([1, -30.9, 238.7])
