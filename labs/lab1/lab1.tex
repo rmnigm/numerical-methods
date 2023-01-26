@@ -3,7 +3,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english, russian]{babel}
 \usepackage{minted}
+\usepackage{graphicx}
 \usepackage{caption}
+
+
 
 \newenvironment{pseudolisting}
  {\begin{minipage}{\linewidth}\vspace*{\topsep}}
@@ -53,11 +56,26 @@
 \end{center}
 \end{titlepage}
 
-\section{Python Code}
+\section{Расчет частичных сумм ряда}
 
 \begin{pseudolisting}
 \inputminted{python}{series.py}
-\captionof{listing}{Расчет суммы ряда}
 \end{pseudolisting}
+
+\newpage
+\begin{center}
+\includegraphics[width=\textwidth]{plots/series_error.png}
+\end{center}
+\begin{center}
+\includegraphics[width=\textwidth]{plots/series_n_digits.png}
+\end{center}
+\section{Вычисления с ограниченной разрядностью}
+
+\begin{center}
+\includegraphics[width=\textwidth]{plots/series_fixed_error.png}
+\end{center}
+\begin{center}
+\includegraphics[width=\textwidth]{plots/series_fixed_n_digits.png}
+\end{center}
 
 \end{document}
