@@ -16,14 +16,14 @@ They are used in homework for Numerical Methods course in 3rd year of Applied Ma
   $ cd <path to cloned repo>
   $ ~/.pyenv/versions/3.10.6/bin/python -m venv nums_env
   ```
-  - Activate venv (will be active until you clode the terminal session or use `deactivate`)
-    ```bash
-    $ source nums_env/bin/activate
-    ```  
-    In terminal you will now have a prefix:
-    ```bash
-    (nums_env)$ ...
-    ```
+- Activate venv (will be active until you clode the terminal session or use `deactivate`)
+  ```bash
+  $ source nums_env/bin/activate
+  ```  
+  In terminal you will now have a prefix:
+  ```bash
+  (nums_env)$ ...
+  ```
 
 - Check everything is correct and `python` and `pip` lead to `nums_env`
     ```bash
