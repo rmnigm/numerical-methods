@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{minted}
+\usepackage{caption}
+
+\newenvironment{pseudolisting}
+ {\begin{minipage}{\linewidth}\vspace*{\topsep}}
+ {\vspace*{\topsep}\end{minipage}}
+
+\begin{document}
+
+\begin{titlepage}
+  \begin{center}
+    \large
+     
+    \textbf{Федеральное государственное автономное образовательное учреждение высшего образования}
+    \vspace{0.5cm}
+ 
+    НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ \\ "ВЫСШАЯ ШКОЛА ЭКОНОМИКИ"
+    \vspace{0.5cm}
+     
+    Московский институт электроники и математики имени А. Н. Тихонова 
+     
+    Программа "Прикладная математика"
+    \vfill
+     
+     
+    Нигматуллин Роман Максимович
+    \vfill
+ 
+    \textsc{Лаборатная работа}\\[5mm]
+     
+    {\LARGE Теория погрешностей и машинная арифметика\\[2mm]
+    }
+  \bigskip
+     
+    3 курс, группа БПМ203
+\end{center}
+\vfill
+ 
+
+ 
+\hfill\begin{flushright}
+  \textbf{Преподаватель:}\\
+  Брандышев Петр Евгеньевич
+\end{flushright}%
+\vfill
+ 
+\begin{center}
+  Москва, 2021 г.
+\end{center}
+\end{titlepage}
+
+\section{Python Code}
+
+\begin{pseudolisting}
+\inputminted{python}{series.py}
+\captionof{listing}{Расчет суммы ряда}
+\end{pseudolisting}
+
+\end{document}

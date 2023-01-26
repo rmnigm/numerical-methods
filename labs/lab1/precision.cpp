@@ -21,7 +21,7 @@ int main() {
         c /= 2;
         k++;
     }
-    std::cout << "Float - 2^" << k << std::endl;
+    std::cout << "Long Double - 2^" << k << std::endl;
     return 0;
 }
 
