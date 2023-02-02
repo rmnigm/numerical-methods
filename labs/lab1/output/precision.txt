@@ -1,0 +1,12 @@
+
+float zero is 2^-150
+float infinity is 2^128
+float epsilon is 2^-24
+
+double zero is 2^-1075
+double infinity is 2^1024
+double epsilon is 2^-53
+
+long double zero is 2^-1075
+long double infinity is 2^1024
+long double epsilon is 2^-53

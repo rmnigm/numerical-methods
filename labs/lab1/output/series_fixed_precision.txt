@@ -1,0 +1,10 @@
+Sum, Error, Number of digits for bit_depth = 4
+16.91869999999773 -0.918699999997731 2
+Sum, Error, Number of digits for bit_depth = 5
+16.07401999999661 -0.07401999999661157 3
+Sum, Error, Number of digits for bit_depth = 6
+16.00175300000028 -0.001753000000281446 4
+Sum, Error, Number of digits for bit_depth = 7
+15.99730419999936 0.0026958000006391813 4
+Sum, Error, Number of digits for bit_depth = 8
+15.996850950000152 0.00314904999984833 4
