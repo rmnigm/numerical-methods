@@ -5,9 +5,9 @@ import numpy as np
 import warnings
 
 displayer = {
-    'float16': np.float16,
-    'float32': np.float32,
-    'float64': np.float64,
+    'float': np.single,
+    'double': np.double,
+    'long double': np.longdouble,
 }
 
 
@@ -27,7 +27,7 @@ def experiment(type_name):
     print(type_name, "infinity is 2^" + str(k))
     k = 0
     num = num_type(1)
-    while 1. + num > 1.:
+    while num_type(1.) + num > num_type(1.):
         num = num_type(num / 2)
         k += 1
     print(type_name, "epsilon is 2^-" + str(k))

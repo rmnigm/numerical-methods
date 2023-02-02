@@ -1,12 +1,15 @@
-\documentclass{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english, russian]{babel}
 \usepackage{minted}
+\usepackage{verbatim}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{subcaption}
+\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}
 
-
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}
 
 \newenvironment{pseudolisting}
  {\begin{minipage}{\linewidth}\vspace*{\topsep}}
@@ -56,26 +59,155 @@
 \end{center}
 \end{titlepage}
 
+
+\tableofcontents
+
 \section{Расчет частичных сумм ряда}
+\subsection{Формулировка задачи}
+Дан ряд, надо найти сумму аналитически как предел частичных сумм, затем вычислить частичные суммы в зависимости от N и сравнить абсолютную погрешность и кол-во верных цифр в частичной сумме.
+   $$S(N) = \sum_0^N a_n$$
+   $$a_n = \frac{32}{n^2 +5n + 6}$$
+   
+\subsection{Аналитический расчет суммы ряда}
+Выпишем формулу суммы ряда:
+   $$S = \sum_{0}^{\infty} \frac{32}{n^2 +5n + 6}$$
+Разделим знаменатель выражения на простые многочлены и на разные слагаемые:
+   $$a_n =  \frac{32}{(n+2)(n+3)} = \frac{A}{n+2} + \frac{B}{n+3}$$
+   $$$$
+   $$a_n = \frac{A}{n+2} + \frac{B}{n+3} = \frac{An + 3A + Bn + 2B}{(n+2)(n+3)}$$
+Вычислим значения в методе неопределенных коэффициентов:
+   $$3A + 2B = 32, A=-B$$
+   $$A=32, B=-32$$
+Распишем первые несколько членов ряда и заметим, что соседние сокращаются:
+   $$S(N) = \frac{32}{0+2} - \frac{32}{0+3} + \frac{32}{1+2} - \frac{32}{1+3}  ... + \frac{32}{n+2} - \frac{32}{n+3}$$
+Перейдем к пределу и выведем аналитическое значение предела суммы:
+   $$S(N) = \frac{32}{0+2} - \frac{32}{n+3}$$
+   $$S = \lim_{s\rightarrow \infty}S_N = 16 - 0 = 16$$
 
-\begin{pseudolisting}
+\subsection{Код на Python}
+
+\begin{longlisting}
 \inputminted{python}{series.py}
-\end{pseudolisting}
+\end{longlisting}
 
-\newpage
-\begin{center}
-\includegraphics[width=\textwidth]{plots/series_error.png}
-\end{center}
-\begin{center}
-\includegraphics[width=\textwidth]{plots/series_n_digits.png}
-\end{center}
+\subsection{Результат работы программы}
+\begin{longlisting}
+\verbatiminput{output/series.txt}
+\end{longlisting}
+
+\subsection{Графики точности результата}
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{plots/series_error.png}
+  \caption{Абсолютная погрешность}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{plots/series_n_digits.png}
+  \caption{Кол-во значащих цифр}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{Точность в зависимости от N}
+\label{fig:test}
+\end{figure}
+
+\section{Квадратное уравнение}
+\subsection{Формулировка задачи}
+Дано квадратное уравнение. Предполагается, что один из коэффициентов уравнения (помечен $*$) получен в результате округления. Произвести теоретическую оценку погрешностей корней в зависимости от погрешности коэффициента. Вычислить корни уравнения при нескольких различных значениях коэффициента в пределах заданной точности, сравнить.
+$$x^2+bx+c = 0$$
+$$b = -30.9$$
+$$c^* = 238.7 $$
+    
+\subsection{Теоретическая оценка погрешности}
+
+Выпишем формулу уравнения и погрешности переменных и общую формулу для функций:
+$$ax^2 + bx + c = 0$$
+$$c^* = c \pm \Delta c$$
+$$\bar{\Delta} x = |x| \bar{\delta} x$$
+$$\bar{\Delta} f(x) = |f'(x)| \bar{\Delta} x$$
+Оценим погрешность корня уравнения в зависимости от коэффициента $c$:
+$$\frac{\bar{\Delta} f(x)}{|f(x)|} = \bar{\delta} f(x) = \frac{|xf'(x)|}{|f(x)|}\bar{\delta}x$$
+
+$$\bar{\delta} x_{1,2} = |\frac{c}{x_{1,2}} \frac{\partial x_{1,2}}{\partial c} | \times \bar{\delta} c$$
+Запишем общую формулу корня квадратного уравнения и вычислим производную:
+$$x_{1,2} = \frac{-b \pm \sqrt{b^2-4ac}}{2a} $$
+
+$$\frac{\partial x_{1,2}}{\partial c} = -\frac{1}{\sqrt{b^2-4ac}} = -10$$
+Рассчитаем теоретические погрешности корней в зависимости от относительной погрешности $c$:
+$$\bar{\delta} x_{1} = \frac{30.9}{15.5} \times 10 \times \bar{\delta} c = ~19.935 \times \bar{\delta} c $$
+$$\bar{\delta} x_{2} = \frac{30.9}{15.4} \times 10 \times \bar{\delta} c = ~20.065 \times \bar{\delta} c$$
+   
+\subsection{Код на Python}
+\begin{longlisting}
+\inputminted{python}{quadratic_eq.py}
+\end{longlisting}
+
+\subsection{Результат работы программы}
+\begin{longlisting}
+\verbatiminput{output/quadratic_eq.txt}
+\end{longlisting}
+
+\section{Машинная точность}
+\subsection{Формулировка задачи}
+Вычислить значения машинного нуля, машинной бесконечности и машинного эпсилон в режимах одинарной, двойной и расширенной точности на двух алгоритмических языках.
+\subsection{Код на Python}
+
+\begin{longlisting}
+\inputminted{python}{precision.py}
+\end{longlisting}
+
+\subsection{Результат работы программы}
+\begin{longlisting}
+\verbatiminput{output/precision.txt}
+\end{longlisting}
+
+\subsection{Код на C++}
+\begin{longlisting}
+\inputminted{c++}{precision.cpp}
+\end{longlisting}
+
+\subsection{Результат работы программы}
+\begin{longlisting}
+\verbatiminput{output/precision_cpp.txt}
+\end{longlisting}
+
+
 \section{Вычисления с ограниченной разрядностью}
+\subsection{Формулировка задачи}
+Составить программу, моделирующую вычисления на ЭВМ с ограниченной разрядностью $m$.
+Решить задачу о вычислении суммы ряда для случая $n=10000$, используя эту программу. Составить график зависимости погрешности от количества разрядов $m = \{4, 5, 6, 7, 8\}$.
 
-\begin{center}
-\includegraphics[width=\textwidth]{plots/series_fixed_error.png}
-\end{center}
-\begin{center}
-\includegraphics[width=\textwidth]{plots/series_fixed_n_digits.png}
-\end{center}
+\subsection{Код на Python}
+
+\begin{longlisting}
+\inputminted{python}{series_fixed_precision.py}
+\end{longlisting}
+
+\subsection{Результат работы программы}
+\begin{longlisting}
+\verbatiminput{output/series_fixed_precision.txt}
+\end{longlisting}
+
+\subsection{Графики точности результата}
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{plots/series_fixed_error.png}
+  \caption{Абсолютная погрешность}
+  \label{fig:sub3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{plots/series_fixed_n_digits.png}
+  \caption{Кол-во значащих цифр}
+  \label{fig:sub4}
+\end{subfigure}
+\caption{Точность в зависимости от разрядности}
+\label{fig:test}
+\end{figure}
 
 \end{document}

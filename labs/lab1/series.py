@@ -12,7 +12,7 @@ def calculate_nth(n):
 sums = {}
 errors = {}
 n_digits = defaultdict(int)
-for N in (10 ** p for p in range(5)):
+for N in (10 ** p for p in range(1, 6)):
     s = 0.
     true_s = 16.
     for i in range(N):
@@ -42,6 +42,6 @@ plt.close()
 
 bars = plt.barh(keys, n_digits, label='Кол-во значимых цифр')
 plt.bar_label(bars, padding=8, fontsize=9)
-plt.xlim(0, 5)
+plt.xlim(0, 6)
 plt.legend()
 plt.savefig('plots/series_n_digits.png', dpi=300)
