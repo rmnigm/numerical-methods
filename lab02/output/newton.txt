@@ -1,0 +1,8 @@
+m - root multiplicity
+x - root
+cnt - number of iterations
+m = 1: x = 0.7739446, cnt = 8
+m = 2: x = 0.7741703, cnt = 3
+m = 3: x = 0.7799195, cnt = 1
+m = 4: x = 0.7952828, cnt = 3
+m = 5: x = 0.7739685, cnt = 8

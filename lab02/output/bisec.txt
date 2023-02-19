@@ -1,0 +1,6 @@
+f(x):
+scipy root = -0.52360
+bisection = -0.52360
+g(x):
+scipy root = -0.33984
+bisection = -0.00000
