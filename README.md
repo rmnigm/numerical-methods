@@ -3,6 +3,11 @@
 This is a repository containing numerical algorithms, written in Python and C++.
 They are used in homework for Numerical Methods course in 3rd year of Applied Math undergraduate program in HSE University. Homeworks are mostly annotated in russian.
 
+**Homework topics:**
+- Numerical precision, computer representation of numbers
+- Solving nonlinear equations
+- TBD
+
 ## How to setup (Unix)
 - Clone repository to local machine
 - Install Pyenv using [this guide](https://github.com/pyenv/pyenv#installation)
