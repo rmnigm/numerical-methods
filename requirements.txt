@@ -1,6 +1,11 @@
+# visualization
 matplotlib==3.6.3
 
-
+# numerical computation
 numpy==1.24.1
 scipy==1.10.0
 sympy==1.11.1
+
+# codestyle
+ruff==0.0.248
+mypy==1.0.1

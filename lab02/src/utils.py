@@ -33,7 +33,7 @@ def bisection(f: tp.Callable, eps: float, interval: tuple[float, float]) -> floa
     a, b = interval
     while abs(a - b) > 2 * eps:
         x = (a + b) / 2
-        a_val, x_val, y_val = f(a), f(x), f(b)
+        a_val, x_val = f(a), f(x)
         if a_val * x_val <= 0:
             b = x
         else:

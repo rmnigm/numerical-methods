@@ -1,9 +1,9 @@
 import math
 import typing as tp
 
-import scipy
-import numpy as np
-import matplotlib.pyplot as plt
+import scipy  # type: ignore
+import numpy as np  # type: ignore
+import matplotlib.pyplot as plt  # type: ignore
 
 from utils import bisection
 

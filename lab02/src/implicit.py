@@ -1,8 +1,8 @@
 import math
 import typing as tp
 
-import matplotlib.pyplot as plt
-from scipy.optimize import root
+import matplotlib.pyplot as plt  # type: ignore
+from scipy.optimize import root  # type: ignore
 
 
 def implicit_to_normal(x_stable: float):
@@ -23,7 +23,8 @@ def calc_point(x_val: float):
     
     @implicit_to_normal(x_stable=x_val)
     def implicit_function(x, y):
-        return math.sinh(y * math.exp(y) - x / 20) + math.atan(20 * y * math.exp(y) - x) - 0.5
+        return (math.sinh(y * math.exp(y) - x / 20)
+                + math.atan(20 * y * math.exp(y) - x) - 0.5)
     
     return root(fun=implicit_function, x0=y_interval[1])
 
