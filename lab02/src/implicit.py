@@ -31,6 +31,9 @@ def calc_point(x_val: float):
 for x in x_vals:
     sol = calc_point(x)
     y_vals.append(sol.x[0])
+    
+for x, y in zip(x_vals, y_vals):
+    print(f'x={x}: y={y:.7f}')
 
 plt.figure(figsize=(6, 4))
 plt.plot(x_vals, y_vals)
