@@ -29,7 +29,9 @@ def newton(func: tp.Callable,
     return x, cnt
 
 
-def bisection(f: tp.Callable, eps: float, interval: tuple[float, float]) -> float:
+def bisection(f: tp.Callable,
+              eps: float,
+              interval: tuple[float, float]) -> float:
     a, b = interval
     while abs(a - b) > 2 * eps:
         x = (a + b) / 2

@@ -8,7 +8,9 @@ import matplotlib.pyplot as plt  # type: ignore
 from utils import bisection
 
 
-def root_finder(func: tp.Callable, name: str, interval: tuple[float, float]) -> None:
+def root_finder(func: tp.Callable,
+                name: str,
+                interval: tuple[float, float]) -> None:
     print(f'{name}(x):')
     scipy_root = scipy.optimize.root(fun=func, x0=-1).x[0]
     bisect_root = bisection(func, 1e-10, interval)
