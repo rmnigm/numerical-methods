@@ -1,5 +1,5 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import numpy as np  # type: ignore
+import matplotlib.pyplot as plt  # type: ignore
 
 
 N, n = 16, 5
@@ -13,7 +13,7 @@ A = 100 / (3 + 0.3 * C) ** 5
 
 x = np.linalg.solve(A, b)
 
-cond_value = np.max(A)
+cond_value = np.max(np.abs(A))
 delta = 0.1
 
 x_modified = np.empty((n, n))
@@ -34,11 +34,12 @@ b_modified[d_argmax] += delta
 
 
 with np.printoptions(precision=5):
+    rel_delta = np.max(b_modified - b) / np.max(b)
     print(f'm = {d_argmax + 1}')
     print(f'd = {d}')
     print(f'delta(x^m) = {d[d_argmax]}')
-    print(f'delta(b^m) = {delta}')
+    print(f'delta(b^m) = {rel_delta}')
     print(f'cond(A) = {cond_value}')
-    cmp_sign = '<=' if d[d_argmax] <= delta * cond_value else '>'
-    print(f'{d[d_argmax]} {cmp_sign} {delta * cond_value}')
+    cmp_sign = '<=' if d[d_argmax] <= rel_delta * cond_value else '>'
+    print(f'{d[d_argmax]} {cmp_sign} {rel_delta * cond_value}')
     print(f'delta(x^m) {cmp_sign} cond(A) * delta(b^m)')
