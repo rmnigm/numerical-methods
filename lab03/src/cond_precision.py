@@ -13,7 +13,7 @@ A = 100 / (3 + 0.3 * C) ** 5
 
 x = np.linalg.solve(A, b)
 
-cond_value = np.max(np.abs(A))
+cond_value = np.linalg.cond(np.abs(A), p=np.inf)
 delta = 0.1
 
 x_modified = np.empty((n, n))
@@ -21,7 +21,8 @@ for i in range(n):
     b_modified = b.copy()
     b_modified[i] += delta
     x_modified[i] = np.linalg.solve(A, b_modified)
-d = np.array([np.max(x - x_i) / np.max(x) for x_i in x_modified])
+d = np.array([np.linalg.norm(x - x_i, ord=np.inf) / np.linalg.norm(x, ord=np.inf)
+              for x_i in x_modified])
 
 plt.figure(figsize=(6, 5))
 plt.bar(range(n), d)
@@ -34,7 +35,7 @@ b_modified[d_argmax] += delta
 
 
 with np.printoptions(precision=5):
-    rel_delta = np.max(b_modified - b) / np.max(b)
+    rel_delta = np.linalg.norm(b_modified - b, ord=np.inf) / np.linalg.norm(b, ord=np.inf)
     print(f'm = {d_argmax + 1}')
     print(f'd = {d}')
     print(f'delta(x^m) = {d[d_argmax]}')

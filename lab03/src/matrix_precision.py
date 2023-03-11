@@ -11,7 +11,7 @@ for i in range(n):
         
 A = 100 / (3 + 0.3 * C) ** 5
 x = np.linalg.solve(A, b)
-cond_value = np.max(A)
+cond_value = np.linalg.cond(A, p=np.inf)
 
 delta = 0.1
 x_modified = {}
@@ -20,7 +20,8 @@ for i in range(n):
         A_modified = A.copy()
         A_modified[i, j] += delta
         x_modified[(i, j)] = np.linalg.solve(A_modified, b)
-d = {key: np.max(x - x_i) / np.max(x) for key, x_i in x_modified.items()}
+d = {key: np.linalg.norm(x - x_i, ord=np.inf) / np.linalg.norm(x, ord=np.inf)
+     for key, x_i in x_modified.items()}
 
 plt.figure(figsize=(10, 5))
 plt.bar([str(el) for el in d.keys()], d.values())
@@ -31,7 +32,7 @@ plt.savefig('plots/matrix_precision.png', dpi=300)
 d_i, d_j = max(d, key=d.get)  # type: ignore
 A_modified = A.copy()
 A_modified[d_i, d_j] += delta
-rel_delta = np.max(A_modified - A) / np.max(A)
+rel_delta = np.linalg.norm(A_modified - A, ord=np.inf) / np.linalg.norm(A, ord=np.inf)
 cmp_sign = '<=' if d[(d_i, d_j)] <= rel_delta * cond_value else '>'
 
 print(f'i, j = {d_i, d_j}')
