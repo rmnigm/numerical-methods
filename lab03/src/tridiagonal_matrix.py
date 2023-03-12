@@ -23,7 +23,8 @@ A[0] = 0
 C = np.full(n, fill_value=1, dtype=float)
 C[n-1] = 0
 B = np.full(n, fill_value=100, dtype=float)
-D = np.arange(1, n+1) * np.exp(10 / np.arange(1, n+1)) * np.cos(9 / np.arange(1, n+1))
+D = (np.arange(1, n+1) * np.exp(10 / np.arange(1, n+1))
+     * np.cos(9 / np.arange(1, n+1)))
 
 print('Main diagonal B:')
 print(B)

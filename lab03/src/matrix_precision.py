@@ -32,7 +32,8 @@ plt.savefig('plots/matrix_precision.png', dpi=300)
 d_i, d_j = max(d, key=d.get)  # type: ignore
 A_modified = A.copy()
 A_modified[d_i, d_j] += delta
-rel_delta = np.linalg.norm(A_modified - A, ord=np.inf) / np.linalg.norm(A, ord=np.inf)
+rel_delta = (np.linalg.norm(A_modified - A, ord=np.inf)
+             / np.linalg.norm(A, ord=np.inf))
 cmp_sign = '<=' if d[(d_i, d_j)] <= rel_delta * cond_value else '>'
 
 print(f'i, j = {d_i, d_j}')

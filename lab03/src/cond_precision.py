@@ -35,7 +35,8 @@ b_modified[d_argmax] += delta
 
 
 with np.printoptions(precision=5):
-    rel_delta = np.linalg.norm(b_modified - b, ord=np.inf) / np.linalg.norm(b, ord=np.inf)
+    rel_delta = (np.linalg.norm(b_modified - b, ord=np.inf)
+                 / np.linalg.norm(b, ord=np.inf))
     print(f'm = {d_argmax + 1}')
     print(f'd = {d}')
     print(f'delta(x^m) = {d[d_argmax]}')
