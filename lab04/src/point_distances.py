@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from optimize import minimize
 
 
@@ -51,3 +52,22 @@ with np.printoptions(precision=4):
     for point, (solution, res_dist) in distances.items():
         print(f'Point {point}:')
         print(f'Distance = {res_dist:.4f}, closest point = {solution}')
+
+
+fig = plt.figure(figsize=plt.figaspect(1))
+ax = fig.add_subplot(projection='3d')
+
+coefs = (a1, a2, a3)
+rx, ry, rz = 1 / np.sqrt(coefs)
+u = np.linspace(0, 2 * np.pi, 100)
+v = np.linspace(0, np.pi, 100)
+x = rx * np.outer(np.cos(u), np.sin(v))
+y = ry * np.outer(np.sin(u), np.sin(v))
+z = rz * np.outer(np.ones_like(u), np.cos(v))
+
+ax.plot_surface(x, y, z,  rstride=4, cstride=4, color='pink')
+ax.scatter(ps.T[0], ps.T[1], ps.T[2], marker='^')
+for axis in 'xyz':
+    getattr(ax, 'set_{}lim'.format(axis))((-2, 16))
+plt.savefig('plots/point_distances.png', dpi=300)
+plt.show()
