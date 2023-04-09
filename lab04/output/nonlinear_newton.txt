@@ -1,0 +1,5 @@
+Newton's method first solution: [-0.93976819  0.34181244]
+Number of iterations: 4
+Newton's method second solution: [-0.18601448  0.98254746]
+Number of iterations: 5
+Scipy solutions: [-0.93976819  0.34181244], [-0.18601531  0.98254685]
