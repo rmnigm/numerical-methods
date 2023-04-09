@@ -1,0 +1,6 @@
+Point (14.0, 8.2, 13.011):
+Distance = 277.8194, closest point = [3.3335 3.588  1.0622]
+Point (7.425, 7.532, 9.758):
+Distance = 105.0394, closest point = [2.6064 4.3222 1.3012]
+Point (13.125, 4.438, 5.75):
+Distance = 112.4042, closest point = [4.0685 2.3429 0.6515]

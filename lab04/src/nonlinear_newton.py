@@ -1,31 +1,8 @@
 import numpy as np
-from typing import Callable
 import scipy.optimize
 import matplotlib.pyplot as plt
 
-
-def jacobian(f: Callable[[np.array], np.array],
-             x: np.array,
-             f_cnt: int,
-             eps: float = 1e-3) -> np.array:
-    jac = np.zeros((f_cnt, len(x)), dtype=np.double)
-    for i in range(len(x)):
-        delta = np.zeros(len(x))
-        delta[i] += eps
-        jac[:, i] = (f(x + delta) - f(x - delta)) / (eps * 2)
-    return jac
-
-
-def newton(f: Callable[[np.array], np.array],
-           initial: np.array,
-           eps: float = 1e-6) -> np.array:
-    x = initial.astype(np.double)
-    iter_cnt = 0
-    f_cnt = len(f(initial))
-    while np.linalg.norm(f(x)) > eps:
-        x -= np.linalg.inv(jacobian(f, x, f_cnt)).dot(f(x))
-        iter_cnt += 1
-    return x, iter_cnt
+from optimize import root
 
 
 def var_f(x: np.array) -> np.array:
@@ -33,8 +10,8 @@ def var_f(x: np.array) -> np.array:
                      x[0]**2 + x[1]**2 - 1], dtype=np.double)
 
 
-custom_solution_f, iter_cnt_f = newton(var_f, np.array([-1, 0]))
-custom_solution_s, iter_cnt_s = newton(var_f, np.array([1, 2]))
+custom_solution_f, iter_cnt_f = root(var_f, np.array([-1, 0]))
+custom_solution_s, iter_cnt_s = root(var_f, np.array([1, 2]))
 scipy_solution_f = scipy.optimize.fsolve(var_f, np.array([-1, 0]))
 scipy_solution_s = scipy.optimize.fsolve(var_f, np.array([1, 2]))
 
