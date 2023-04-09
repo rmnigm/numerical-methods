@@ -25,7 +25,9 @@ def hessian(f: Callable[[np.array], np.array],
         for j in range(dim):
             j_d = np.zeros(dim)
             j_d[j] += eps
-            hess[i, j] = (f(x - i_d - j_d) - f(x + i_d - j_d) - f(x - i_d + j_d) + f(x + i_d + j_d)) / (4 * eps ** 2)
+            hess[i, j] = (f(x - i_d - j_d) - f(x + i_d - j_d)
+                          - f(x - i_d + j_d) + f(x + i_d + j_d)
+                          ) / (4 * eps ** 2)
     return hess
 
 
