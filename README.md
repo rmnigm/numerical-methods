@@ -7,7 +7,7 @@ They are used in homework for Numerical Methods course in 3rd year of Applied Ma
 1. Numerical precision, computer representation of numbers
 2. Solving nonlinear equations
 3. Solving systems of linear equations with matrix operations
-4. TBD
+4. Solving systems of nonlinear equations
 
 ## How to setup (Unix)
 - Clone repository to local machine
