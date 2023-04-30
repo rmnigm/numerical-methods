@@ -14,7 +14,7 @@ n = 5
 L = np.tril(A, -1)
 U = np.triu(A, 1)
 D = np.diag(np.diag(A))
-B = np.linalg.inv(L + D).dot(U)
+B = np.linalg.inv(L + D).dot(-U)
 
 np_solution = np.linalg.solve(A, b)
 print(f"Numpy solution: {np_solution}\n")

@@ -35,3 +35,24 @@ def seidel(a: Union[npt.NDArray, SparseMatrix],
             converge = iter_cnt >= max_iter
         x = x_new
     return x, iter_cnt
+
+
+def simple_iterative(a: Union[npt.NDArray, SparseMatrix],
+                     b: npt.NDArray,
+                     x: Optional[npt.NDArray] = None,
+                     eps: float = 1e-9,
+                     max_iter: Optional[int] = None) -> tuple[npt.NDArray, int]:
+    x = x if x is not None else np.zeros(len(a))
+    L = np.tril(a, -1)
+    U = np.triu(a, 1)
+    D = np.diag(np.diag(a))
+    B = np.linalg.inv(L + D).dot(-U)
+    c = np.linalg.inv(L + D).dot(b)
+    x_new = x.copy()
+    for i in range(max_iter):
+        x_new = x.copy()
+        x_new = B.dot(x_new) + c
+        if np.linalg.norm(x - x_new, ord=np.inf) <= eps:
+            return x_new, i
+        x = x_new
+    return x_new, max_iter
