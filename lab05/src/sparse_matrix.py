@@ -1,22 +1,33 @@
 import math
-from typing import Dict, Tuple, List
+import numpy as np
+from typing import Dict, Tuple
 
 
 class SparseMatrix:
     """Sparse matrix class"""
     
-    def __init__(self, data: Dict[Tuple[int, int], float] = None):
+    def __init__(self,
+                 data: Dict[Tuple[int, int], float] = None,
+                 n: int = 2):
         """
         :param data: A dictionary of (i, j) -> value
         """
         self.data = data or {}
+        self.n = n
 
-    def from_dense_matrix(self, matrix: List[List[float]]) -> "SparseMatrix":
+    def from_dense_matrix(self, matrix) -> "SparseMatrix":
+        self.n = len(matrix)
         for i in range(len(matrix)):
             for j in range(len(matrix[0])):
                 if matrix[i][j] != 0:
                     self[(i, j)] = matrix[i][j]
         return self
+    
+    def dense(self) -> "SparseMatrix":
+        res = np.zeros((self.n, self.n))
+        for (i, j), v in self.data.items():
+            res[i, j] = v
+        return res
 
     def __getitem__(self, key: Tuple[int, int]) -> float:
         return self.data.get(key, 0)
@@ -31,7 +42,7 @@ class SparseMatrix:
         return iter(self.data.items())
 
     def __len__(self):
-        return len(self.data)
+        return self.n
 
     def __str__(self):
         return str(self.data)
