@@ -11,10 +11,13 @@ A = np.array([
 b = np.array([-468.1, 122.3, -257.2, -223.6, 35.9])
 n = 5
 
+
 np_solution = np.linalg.solve(A, b)
-print(f"Numpy solution: {np_solution}\n")
+print("Numpy solution:")
+print(np_solution)
 
 si_solution, iter_cnt = simple_iterative(A, b, max_iter=10)
 eps = np.linalg.norm(np_solution - si_solution, ord=np.inf)
-print(f"Simple Iterative solution: {si_solution}")
+print("Simple Iterative solution:")
+print(si_solution)
 print(f"Precision: {eps:.6f}")

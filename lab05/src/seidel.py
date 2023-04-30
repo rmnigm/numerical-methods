@@ -28,8 +28,10 @@ if converge:
     eps_2 = np.linalg.norm(np_solution - seidel_solution_2, ord=np.inf)
     
     print(f"x = {np.zeros(n)}")
-    print(f"Seidel method solution: {seidel_solution_1}")
+    print("Seidel method solution:")
+    print(seidel_solution_1)
     print(f"Solution precision by infinity norm: {eps_1:.6f}")
     print(f"x = {np.ones(n)}")
-    print(f"Seidel method solution: {seidel_solution_2}")
+    print("Seidel method solution:")
+    print(seidel_solution_2)
     print(f"Solution precision by infinity norm: {eps_2:.6f}")

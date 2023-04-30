@@ -2,8 +2,10 @@ Numpy solution: [-5.16161616  3.5        -2.5         0.21212121  1.        ]
 
 System convergence with Seidel iterative method: True
 x = [0. 0. 0. 0. 0.]
-Seidel method solution: [-5.16167521  3.49996837 -2.50000698  0.21216197  1.00003386]
+Seidel method solution:
+[-5.16167521  3.49996837 -2.50000698  0.21216197  1.00003386]
 Solution precision by infinity norm: 0.000059
 x = [1. 1. 1. 1. 1.]
-Seidel method solution: [-5.16168826  3.49994571 -2.50002082  0.21217691  1.00004949]
+Seidel method solution:
+[-5.16168826  3.49994571 -2.50002082  0.21217691  1.00004949]
 Solution precision by infinity norm: 0.000072
