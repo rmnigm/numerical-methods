@@ -47,4 +47,4 @@ y = np.array([-0.173, -0.574, -1.811, -1.849, 0.123, 1.462, 2.399, 1.3, 1.703, -
 n = len(x)
 
 weights, optimal_m = approximate(x, y, 11)
-plot(weights, range(6, 11), x, y)
+plot(weights, range(1, 11), x, y)
