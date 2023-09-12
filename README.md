@@ -9,6 +9,7 @@ They are used in homework for Numerical Methods course in 3rd year of Applied Ma
 3. Numerical precision for matrix operations
 4. Solving systems of nonlinear equations
 5. Solving systems of linear equations with iterative methods
+6. Function approximation
 
 ## How to setup (Unix)
 - Clone repository to local machine
