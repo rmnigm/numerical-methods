@@ -1,9 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from tqdm import trange
 from numba import njit
 
-from ode import eyler, rk_nsteps
+from ode import eyler, rk_nsteps, runge_error
 
 
 @njit
@@ -16,16 +15,16 @@ def analytical_solution(t):
     return t ** 2
 
 
-t0, T, y0 = 1, 2, 1
+t0, t_end, y0 = 1, 2, 1
 h = 0.1
-N = int((T - t0) / h)
+N = int((t_end - t0) / h)
 
 t_values = np.array([t0 + i * h for i in range(N + 1)])
 
 analytical_values = np.array([analytical_solution(t) for t in t_values])
-eyler_values = np.array(eyler(f, y0, t0, h, N))
+eyler_values = np.array(eyler(f, y0, t0, t_end, h))
 
-_, rk_values = zip(*rk_nsteps(f=f, h=h, t0=t0, y0=y0, t_end=T))
+rk_values = rk_nsteps(f, y0, t0, t_end, h)
 
 
 plt.plot(t_values, eyler_values, label='Eyler')
@@ -36,18 +35,23 @@ plt.savefig('plots/eyler_vs_rk.png', dpi=300)
 
 eyler_error = np.abs(eyler_values - analytical_values).max()
 rk_error = np.abs(rk_values - analytical_values).max()
+eyler_runge_error = np.abs(runge_error(eyler, f, y0, t0, t_end, h, 1)).max()
+rk_runge_error = np.abs(runge_error(rk_nsteps, f, y0, t0, t_end, h, 4)).max()
 
-print(f'Eyler method error = {eyler_error}')
-print(f'Runge Kutta method error = {rk_error}')
+print(f'Eyler Absolute error = {eyler_error}')
+print(f'RK4 Absolute error = {rk_error}')
+print()
+print(f'Eyler Runge error = {eyler_runge_error}')
+print(f'RK4 Runge error = {rk_runge_error}')
 print()
 
 
 for i in range(8):
     h /= 10
-    N = int((T - t0) / h)
-    t_values = np.linspace(t0, T, N + 1)
+    N = int((t_end - t0) / h)
+    t_values = np.linspace(t0, t_end, N + 1)
     
-    eyler_values = np.array(eyler(f, y0, t0, h, N))
+    eyler_values = np.array(eyler(f, y0, t0, t_end, h))
     analytical_values = analytical_solution(t_values)
     
     eyler_error = np.abs(eyler_values - analytical_values).max()

@@ -1,5 +1,8 @@
-Eyler method error = 0.07631578947368389
-Runge Kutta method error = 1.3322676295501878e-15
+Eyler Absolute error = 0.07631578947368389
+RK4 Absolute error = 1.3322676295501878e-15
+
+Eyler Runge error = 0.03849527665317165
+RK4 Runge error = 1.1842378929335003e-16
 
 For h = 1.0000000000000003e-09 Eyler:
 N = 999999999 points
