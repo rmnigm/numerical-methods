@@ -4,7 +4,7 @@ authors = [
     {name = "Roman Nigmatullin", email = "roman.nigmatullinm@gmail.com"},
 ]
 readme = "README.md"
-license = "LICENSE.md"
+license = {file = "LICENSE.md"}
 version = "1.0.1"
 requires-python = ">=3.10"
 description = "Micro lib useful for numerical methods course in HSE University"
