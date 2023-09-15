@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numba import njit
 
-from ode import extrapolate_adams, rk_nsteps, runge_error
+from ode import extrapolate_adams, rk4_nsteps, runge_error
 
 
 @njit
@@ -15,8 +15,8 @@ h = 0.1
 n = int(2 * (t_end - t0) / h)
 
 t_values = np.array([t0 + i * h / 2 for i in range(n + 1)])[::2]
-rk_solution = rk_nsteps(f, y0, t0, t_end, h / 2)[::2]
-rk_errors = runge_error(rk_nsteps, f, y0, t0, t_end, h, 4)
+rk_solution = rk4_nsteps(f, y0, t0, t_end, h / 2)[::2]
+rk_errors = runge_error(rk4_nsteps, f, y0, t0, t_end, h, 4)
 
 y0_adams = rk_solution[:2]
 t0_adams = t_values[:2]

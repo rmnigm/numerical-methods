@@ -34,7 +34,7 @@ def eyler(f, y0, t0, t_end, h):
     return y
 
 
-def rk_step(f, t, s, h):
+def rk4_step(f, t, s, h):
     ss = 4
     k = [f(t, s)]
     for i in range(1, ss):
@@ -48,18 +48,21 @@ def rk_step(f, t, s, h):
     return diff
 
 
-def rk_nsteps(f, y0, t0, t_end, h):
+def rk4_nsteps(f, y0, t0, t_end, h):
     n = int((t_end - t0) / h)
     arr = np.empty((n + 1, 2))
     arr[:, 0] = np.linspace(t0, t_end, n + 1, endpoint=True)
     arr[0, 1] = y0
 
     for i in range(n):
-        arr[i + 1, 1] = rk_step(f,           # right part of SODE
+        arr[i + 1, 1] = rk4_step(f,           # right part of SODE
                                 arr[i, 0],   # t_0
                                 arr[i, 1],   # s_0
                                 h)           # time step
     return arr[:, 1]
+
+
+# def rk2_adaptive_step()
 
 
 def runge_error(solver, f, y0, t0, t_end, h, p):

@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numba import njit
 
-from ode import eyler, rk_nsteps, runge_error
+import utils
 
 
 @njit
@@ -24,7 +24,7 @@ t_values = np.array([t0 + i * h for i in range(N + 1)])
 analytical_values = np.array([analytical_solution(t) for t in t_values])
 eyler_values = np.array(eyler(f, y0, t0, t_end, h))
 
-rk_values = rk_nsteps(f, y0, t0, t_end, h)
+rk_values = rk4_nsteps(f, y0, t0, t_end, h)
 
 
 plt.plot(t_values, eyler_values, label='Eyler')
@@ -36,7 +36,7 @@ plt.savefig('plots/eyler_vs_rk.png', dpi=300)
 eyler_error = np.abs(eyler_values - analytical_values).max()
 rk_error = np.abs(rk_values - analytical_values).max()
 eyler_runge_error = np.abs(runge_error(eyler, f, y0, t0, t_end, h, 1)).max()
-rk_runge_error = np.abs(runge_error(rk_nsteps, f, y0, t0, t_end, h, 4)).max()
+rk_runge_error = np.abs(runge_error(rk4_nsteps, f, y0, t0, t_end, h, 4)).max()
 
 print(f'Eyler Absolute error = {eyler_error}')
 print(f'RK4 Absolute error = {rk_error}')
