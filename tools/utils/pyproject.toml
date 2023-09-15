@@ -6,6 +6,16 @@ authors = [
 readme = "README.md"
 version = "1.0.0"
 description = "Micro lib useful for numerical methods course in HSE University"
+dependencies = [
+    "numpy == 1.23.5",
+    "numba == 0.56.4",
+    "scipy == 1.10.0",
+    "sympy == 1.11.1",
+    "ruff == 0.0.248",
+    "mypy == 1.0.1",
+    "pytest == 7.4.0",
+    "flake8 == 6.1.0"
+    ]
 
 [tool.flake8]
 max_line_length = 120
