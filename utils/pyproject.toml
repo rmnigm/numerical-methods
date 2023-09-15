@@ -1,0 +1,21 @@
+[project]
+name = "utils"
+authors = [
+    {name = "Roman Nigmatullin", email = "roman.nigmatullinm@gmail.com"},
+]
+readme = "README.md"
+version = "1.0.0"
+description = "Micro lib useful for numerical methods course in HSE University"
+
+[tool.flake8]
+max_line_length = 120
+max-doc-length = 120
+exclude = "test_*.py"
+
+[tool.pytest.ini_options]
+timeout = 60
+minversion = "6.0"
+python_files = "test_*.py"
+testpaths = [
+    "tests"
+]
