@@ -4,7 +4,7 @@ authors = [
     {name = "Roman Nigmatullin", email = "roman.nigmatullinm@gmail.com"},
 ]
 readme = "README.md"
-version = "1.0.0"
+version = "1.0.1"
 description = "Micro lib useful for numerical methods course in HSE University"
 dependencies = [
     "numpy == 1.23.5",

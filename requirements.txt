@@ -3,10 +3,15 @@ matplotlib==3.6.3
 
 # numerical computation
 numpy==1.23.5
-numba=0.56.4
+numba==0.56.4
 scipy==1.10.0
 sympy==1.11.1
 
-# codestyle
+# codestyle and tests
 ruff==0.0.248
 mypy==1.0.1
+pytest==7.4.0
+flake8==6.1.0
+
+# local lib
+./tools/utils
