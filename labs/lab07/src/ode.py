@@ -1,6 +1,4 @@
 import numpy as np
-from numba import njit
-
 
 # constants
 a = np.array([
@@ -13,7 +11,6 @@ b = np.array([1/6, 1/3, 1/3, 1/6])
 c = np.array([0, 1/2, 1/2, 1])
 
 
-@njit
 def extrapolate_adams(f, y0, t0, t_end, h):
     n = int((t_end - t0[0]) / h)
     y = np.empty(n + 1)
@@ -25,7 +22,6 @@ def extrapolate_adams(f, y0, t0, t_end, h):
     return y
 
 
-@njit
 def eyler(f, y0, t0, t_end, h):
     n = int((t_end - t0) / h)
     y = np.empty(n + 1)
@@ -35,14 +31,12 @@ def eyler(f, y0, t0, t_end, h):
     return y
 
 
-@njit
 def eyler_modified_step(f, y0, t0, h):
     y_pred = y0 + h * f(t0, y0)
     y_corr = y0 + h * (f(t0, y0) + f(t0 + h, y_pred)) / 2
     return y_corr
 
 
-@njit
 def rk4_step(f, t, s, h):
     ss = 4
     k = [f(t, s)]
@@ -57,7 +51,6 @@ def rk4_step(f, t, s, h):
     return diff
 
 
-@njit
 def rk4_nsteps(f, y0, t0, t_end, h):
     n = int((t_end - t0) / h)
     arr = np.empty((n + 1, 2))
@@ -72,7 +65,6 @@ def rk4_nsteps(f, y0, t0, t_end, h):
     return arr[:, 1]
 
 
-@njit
 def runge_error_step(solver_step, f, y0, t0, h, p):
     y_h = solver_step(f, y0, t0, h)
     y_1_h2 = solver_step(f, y0, t0, h / 2)
@@ -81,7 +73,6 @@ def runge_error_step(solver_step, f, y0, t0, h, p):
     return error
 
 
-@njit
 def eyler_modified(f, y0, t0, t_end, h):
     n = int((t_end - t0) / h)
     y = np.empty(n + 1)
@@ -90,7 +81,7 @@ def eyler_modified(f, y0, t0, t_end, h):
         y[i + 1] = eyler_modified_step(f, y[i], t0 + i * h, h)
     return y
 
-@njit
+
 def eyler_adaptive(f, y0, t0, t_end, h0, tol):
     ys = [y0]
     ts = [t0]
@@ -109,10 +100,8 @@ def eyler_adaptive(f, y0, t0, t_end, h0, tol):
     return ys, ts
 
 
-@njit
 def runge_error(solver, f, y0, t0, t_end, h, p):
     normal_precision = solver(f, y0, t0, t_end, h)
     double_precision = solver(f, y0, t0, t_end, h / 2)
     errors = (double_precision[::2] - normal_precision) / (2 ** p - 1)
     return errors
-    

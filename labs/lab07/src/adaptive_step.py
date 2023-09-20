@@ -35,4 +35,5 @@ else:
     plt.plot(ts_eyler_m, ys_eyler_m, label='Adaptive Eyler')
     plt.plot(ts_eyler, ys_eyler, label='Eyler')
     plt.legend()
+    plt.savefig('plots/adaptive_step.png', dpi=300)
     plt.show()
