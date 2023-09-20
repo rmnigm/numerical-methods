@@ -2,8 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numba import njit
 
-import utils
-
+from ode import eyler, rk4_nsteps, runge_error
 
 @njit
 def f(t, y):
