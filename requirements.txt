@@ -12,6 +12,3 @@ ruff==0.0.248
 mypy==1.0.1
 pytest==7.4.0
 flake8==6.1.0
-
-# local lib
-./tools/utils
