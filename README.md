@@ -10,6 +10,7 @@ They are used in homework for Numerical Methods course in 3rd year of Applied Ma
 4. Solving systems of nonlinear equations
 5. Solving systems of linear equations with iterative methods
 6. Function approximation
+7. Solving ordinary differential equations
 
 ## How to setup (Unix)
 - Clone repository to local machine
