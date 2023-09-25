@@ -5,13 +5,13 @@ from typing import Callable
 def deriv(func: Callable[[float], float],
           point: float,
           eps: float = 1e-5) -> float:
-    return (func(point + eps) - func(point - eps)) / 2 * eps
+    return (func(point + eps) - func(point - eps)) / (2 * eps)
 
 
 def deriv2(func: Callable[[float], float],
            point: float,
            eps: float = 1e-5) -> float:
-    return (func(point + eps) - 2 * func(point) + func(point - eps)) / eps ** 2
+    return (func(point + eps) - 2 * func(point) + func(point - eps)) / (eps ** 2)
 
 
 def grad(f: Callable[[np.array], np.array],
@@ -57,7 +57,7 @@ def jacobian(f: Callable[[np.array], np.array],
 
 def newton_minimize_vec(f: Callable[[np.array], np.array],
                         initial: np.array,
-                        eps: float = 1e-6) -> np.array:
+                        eps: float = 1e-5) -> np.array:
     x = initial.astype(np.double)
     point_grad = grad(f, x)
     iter_cnt = 0
@@ -70,20 +70,23 @@ def newton_minimize_vec(f: Callable[[np.array], np.array],
 
 def newton_minimize_scal(func: Callable,
                          interval: tuple[float, float],
+                         start: float,
                          eps: float = 1e-5,
-                         m: int = 1) -> tuple[float, int]:
-    x, _ = interval
+                         minimize: bool = True) -> tuple[float, int]:
+    (a, b), x = interval, start
     cnt = 0
-    while abs(func(x)) > eps:
-        x -= m * deriv(func, x) / deriv2(func, x)
+    while a <= x <= b and abs(deriv(func, x)) > eps:
+        step = deriv(func, x) / deriv2(func, x)
+        x += -step if minimize else step
         cnt += 1
+    x = min(b, max(a, x))
     return x, cnt
 
 
 def fibonacci(func: Callable,
               interval: tuple[float, float],
               eps: float = 1e-5,
-              minimize: bool = True) -> float:
+              minimize: bool = True) -> tuple[float, int]:
     a, b = interval
     numbers, f = [1, 1], 2
     d = b - a
@@ -100,5 +103,5 @@ def fibonacci(func: Callable,
             b = x2
         else:
             a = x1
-    return (a + b) / 2
+    return (a + b) / 2, n
     
