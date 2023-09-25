@@ -43,28 +43,25 @@ def hessian(f: Callable[[np.array], np.array],
     return hess
 
 
-def jacobian(f: Callable[[np.array], np.array],
-             x: np.array,
-             f_cnt: int,
-             eps: float = 1e-5) -> np.array:
-    jac = np.zeros((f_cnt, len(x)), dtype=np.double)
-    for i in range(len(x)):
-        delta = np.zeros(len(x))
-        delta[i] += eps
-        jac[:, i] = (f(x + delta) - f(x - delta)) / (eps * 2)
-    return jac
+def point_in_area(point, bbox):
+    return bbox[0][0] < point[0] < bbox[1][0] and bbox[0][1] < point[1] < bbox[1][1]
 
 
-def newton_minimize_vec(f: Callable[[np.array], np.array],
-                        initial: np.array,
-                        eps: float = 1e-5) -> np.array:
-    x = initial.astype(np.double)
-    point_grad = grad(f, x)
+def newton_minimize_vec(func: Callable[[np.array], np.array],
+                        bbox: tuple[np.array, np.array],
+                        start: np.array,
+                        eps: float = 1e-5,
+                        minimize: bool = True) -> np.array:
+    x = start.astype(np.double)
+    point_grad = grad(func, x)
     iter_cnt = 0
-    while np.linalg.norm(point_grad) > eps:
-        x -= np.linalg.inv(hessian(f, x)).dot(point_grad)
-        point_grad = grad(f, x)
+    while point_in_area(x, bbox) and np.linalg.norm(point_grad) > eps:
+        step = np.linalg.inv(hessian(func, x)).dot(point_grad)
+        x -= step if minimize else -step
+        point_grad = grad(func, x)
         iter_cnt += 1
+    x[0] = max(min(bbox[1][0], x[0]), bbox[0][0])
+    x[1] = max(min(bbox[1][1], x[1]), bbox[0][1])
     return x, iter_cnt
 
 
