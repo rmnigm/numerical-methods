@@ -8,6 +8,6 @@ from . import matrix
 from .matrix import seidel, simple_iterative
 
 from . import ode
-from .ode import rk4_nsteps, rk4_step
+from .ode import rk4_nsteps, rk4_step, eyler_adaptive
 
 from . import vm_models
