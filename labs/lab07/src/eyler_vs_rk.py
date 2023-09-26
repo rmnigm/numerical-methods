@@ -4,6 +4,7 @@ from numba import njit
 
 from ode import eyler, rk4_nsteps, runge_error
 
+
 @njit
 def f(t, y):
     return - y / t + 3 * t
