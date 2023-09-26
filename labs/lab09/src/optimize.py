@@ -47,11 +47,11 @@ def point_in_area(point, bbox):
     return bbox[0][0] < point[0] < bbox[1][0] and bbox[0][1] < point[1] < bbox[1][1]
 
 
-def newton_minimize_vec(func: Callable[[np.array], np.array],
+def newton_optimize_vec(func: Callable[[np.array], np.array],
                         bbox: tuple[np.array, np.array],
                         start: np.array,
                         eps: float = 1e-5,
-                        minimize: bool = True) -> np.array:
+                        minimize: bool = True) -> tuple[np.array, int]:
     x = start.astype(np.double)
     point_grad = grad(func, x)
     iter_cnt = 0
@@ -65,7 +65,55 @@ def newton_minimize_vec(func: Callable[[np.array], np.array],
     return x, iter_cnt
 
 
-def newton_minimize_scal(func: Callable,
+def conjucate_grad_minimize(func: Callable[[np.array], np.array],
+                            start: np.array,
+                            eps: float = 1e-5) -> tuple[np.array, int]:
+    x = start.astype(np.double)
+    x_prev, h_prev = None, None
+    iter_cnt = 0
+    h = -grad(func, x)
+    while np.linalg.norm(grad(func, x)) > eps:
+        h = -grad(func, x)
+        if h_prev is not None and x_prev is not None:
+            beta = (np.linalg.norm(grad(func, x)) / np.linalg.norm(grad(func, x_prev))) ** 2
+            h += beta * h_prev
+        alpha, _ = newton_optimize_scal(lambda a: func(x + a * h),
+                                        interval=(-5, 5),
+                                        start=0,
+                                        eps=eps * 1e-2)
+        x_prev = x.copy()
+        x += alpha * h
+        h_prev = h.copy()
+        iter_cnt += 1
+
+    return x, iter_cnt
+
+
+def conjucate_grad_quadratic_minimize(func: Callable[[np.array], np.array],
+                                      func_matrix: np.array,
+                                      start: np.array,
+                                      eps: float = 1e-5) -> tuple[np.array, int]:
+    x = start.astype(np.double)
+    h_prev = None
+    iter_cnt = 0
+    h = -grad(func, x)
+    while np.linalg.norm(grad(func, x)) > eps:
+        h = -grad(func, x)
+        if h_prev is not None:
+            beta = ((func_matrix @ h_prev) @ grad(func, x)) / ((func_matrix @ h_prev) @ h_prev)
+            h += beta * h_prev
+        alpha, _ = newton_optimize_scal(lambda a: func(x + a * h),
+                                        interval=(-10, 10),
+                                        start=0,
+                                        eps=eps * 1e-2)
+        x += alpha * h
+        h_prev = h.copy()
+        iter_cnt += 1
+
+    return x, iter_cnt
+
+
+def newton_optimize_scal(func: Callable,
                          interval: tuple[float, float],
                          start: float,
                          eps: float = 1e-5,

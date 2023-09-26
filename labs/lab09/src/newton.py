@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from optimize import newton_minimize_scal
+from optimize import newton_optimize_scal
 
 
 def f(t):

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from optimize import newton_minimize_vec
+from optimize import newton_optimize_vec
 
 
 def f(x):
@@ -29,12 +29,12 @@ plt.savefig('pics/newton2d_levels.png', dpi=300)
 print('Enter starting points in format < x y >:')
 start = np.array(list(map(float, input().split())))
 
-minima, iter_min = newton_minimize_vec(func=f,
+minima, iter_min = newton_optimize_vec(func=f,
                                        bbox=bbox,
                                        start=start,
                                        eps=1e-6,
                                        minimize=True)
-maxima, iter_max = newton_minimize_vec(func=f,
+maxima, iter_max = newton_optimize_vec(func=f,
                                        bbox=bbox,
                                        start=start,
                                        eps=1e-6,
