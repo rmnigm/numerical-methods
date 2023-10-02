@@ -21,7 +21,7 @@ N = int((t_end - t0) / h)
 
 t_values = np.array([t0 + i * h for i in range(N + 1)])
 
-analytical_values = np.array([analytical_solution(t) for t in t_values])
+analytical_values = analytical_solution(t_values)
 eyler_values = np.array(eyler(f, y0, t0, t_end, h))
 
 rk_values = rk4_nsteps(f, y0, t0, t_end, h)
@@ -46,8 +46,8 @@ print(f'RK4 Runge error = {rk_runge_error}')
 print()
 
 
-for i in range(8):
-    h /= 10
+for i in range(20):
+    h /= 2
     N = int((t_end - t0) / h)
     t_values = np.linspace(t0, t_end, N + 1)
     
@@ -55,10 +55,9 @@ for i in range(8):
     analytical_values = analytical_solution(t_values)
     
     eyler_error = np.abs(eyler_values - analytical_values).max()
+    print(f'For h = {h} Eyler:')
+    print(f'N = {N} points')
+    print(f'Eyler method error = {eyler_error}')
+    print('-' * 50)
     if rk_error >= eyler_error:
         break
-    
-
-print(f'For h = {h} Eyler:')
-print(f'N = {N} points')
-print(f'Eyler method error = {eyler_error}')
