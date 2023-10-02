@@ -44,7 +44,8 @@ def hessian(f: Callable[[np.array], np.array],
 
 
 def point_in_area(point, bbox):
-    return bbox[0][0] < point[0] < bbox[1][0] and bbox[0][1] < point[1] < bbox[1][1]
+    return bbox[0][0] < point[0] < bbox[1][0]\
+           and bbox[0][1] < point[1] < bbox[1][1]
 
 
 def newton_optimize_vec(func: Callable[[np.array], np.array],
@@ -75,7 +76,8 @@ def conjucate_grad_minimize(func: Callable[[np.array], np.array],
     while np.linalg.norm(grad(func, x)) > eps:
         h = -grad(func, x)
         if h_prev is not None and x_prev is not None:
-            beta = (np.linalg.norm(grad(func, x)) / np.linalg.norm(grad(func, x_prev))) ** 2
+            denominator = np.linalg.norm(grad(func, x_prev))
+            beta = (np.linalg.norm(grad(func, x)) / denominator) ** 2
             h += beta * h_prev
         alpha, _ = newton_optimize_scal(lambda a: func(x + a * h),
                                         interval=(-5, 5),
@@ -100,7 +102,8 @@ def conjucate_grad_quadratic_minimize(func: Callable[[np.array], np.array],
     while np.linalg.norm(grad(func, x)) > eps:
         h = -grad(func, x)
         if h_prev is not None:
-            beta = ((func_matrix @ h_prev) @ grad(func, x)) / ((func_matrix @ h_prev) @ h_prev)
+            denominator = ((func_matrix @ h_prev) @ h_prev)
+            beta = ((func_matrix @ h_prev) @ grad(func, x)) / denominator
             h += beta * h_prev
         alpha, _ = newton_optimize_scal(lambda a: func(x + a * h),
                                         interval=(-10, 10),

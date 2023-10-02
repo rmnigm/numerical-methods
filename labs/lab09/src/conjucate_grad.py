@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from optimize import conjucate_grad_minimize, conjucate_grad_quadratic_minimize
+from optimize import conjucate_grad_minimize as conjgrad
+from optimize import conjucate_grad_quadratic_minimize as conjgrad_quadr
 
 
 def get_quad(A, b):
@@ -10,7 +11,11 @@ def get_quad(A, b):
         return x @ A @ x + b @ x
     
     def f_var(x, y):
-        return A[0][0] * x ** 2 + 2 * A[0][1] * x * y + A[1][1] * y ** 2 + b[0] * x + b[1] * y
+        return (A[0][0] * x ** 2
+                + 2 * A[0][1] * x * y
+                + A[1][1] * y ** 2
+                + b[0] * x
+                + b[1] * y)
     
     return f_arr, f_var
 
@@ -29,10 +34,10 @@ y = np.linspace(-5, 5, ny)
 xv, yv = np.meshgrid(x, y)
 zv = ff(xv, yv)
 
-minima, iter_min = conjucate_grad_minimize(func=f, start=start, eps=1e-6)
-minima_q, iter_min_q = conjucate_grad_quadratic_minimize(func=f, func_matrix=A, start=start, eps=1e-6)
-print(f'min(f(x)) = {minima}, {iter_min} iterations with general formula method')
-print(f'min(f(x)) = {minima_q}, {iter_min_q} iterations with quadratic formula method')
+minima, iter_min = conjgrad(func=f, start=start, eps=1e-6)
+minima_q, iter_min_q = conjgrad_quadr(func=f, func_matrix=A, start=start, eps=1e-6)
+print(f'min(f(x)) = {minima}, {iter_min} iterations with general formula')
+print(f'min(f(x)) = {minima_q}, {iter_min_q} iterations with quadratic formula')
 
 plt.subplots(figsize=(8, 6))
 plt.contourf(x, y, zv, cmap='gray')
@@ -44,4 +49,4 @@ plt.axis('scaled')
 plt.colorbar()
 plt.tight_layout()
 plt.legend()
-plt.savefig('pics/conjucate_grad.png', dpi=300)
+plt.savefig('plots/conjucate_grad.png', dpi=300)

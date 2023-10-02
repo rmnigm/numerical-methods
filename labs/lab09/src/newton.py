@@ -10,17 +10,17 @@ def f(t):
 
 interval = (0 + 1e-5, 3)
 
-minima, iter_min = newton_minimize_scal(func=f,
+minima, iter_min = newton_optimize_scal(func=f,
                                         interval=interval,
                                         start=1.5,
                                         eps=1e-6,
                                         minimize=True)
-maxima, iter_max = newton_minimize_scal(func=f,
+maxima, iter_max = newton_optimize_scal(func=f,
                                         interval=interval,
                                         start=1.0,
                                         eps=1e-6,
                                         minimize=False)
-right_maxima, right_iter_max = newton_minimize_scal(func=f,
+right_maxima, right_iter_max = newton_optimize_scal(func=f,
                                                     interval=interval,
                                                     start=2.0,
                                                     eps=1e-6,
@@ -45,4 +45,4 @@ plt.scatter(right_maxima, f(right_maxima),
 plt.tight_layout()
 plt.legend()
 plt.grid()
-plt.savefig('pics/newton.png', dpi=300)
+plt.savefig('plots/newton.png', dpi=300)

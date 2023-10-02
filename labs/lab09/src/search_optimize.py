@@ -17,9 +17,13 @@ y = f(t)
 
 fig, ax = plt.subplots(figsize=(8, 5))
 plt.plot(t, y, label='$f(x)$')
-plt.scatter(minima, f(minima), s=70, color='red', label=f'$min$ $f(x)$, {iter_min} iterations')
-plt.scatter(maxima, f(maxima), s=70, color='green', label=f'$max$ $f(x)$, {iter_max} iterations')
+plt.scatter(minima, f(minima),
+            s=70, color='red', label=f'$min$ $f(x)$, {iter_min} iterations'
+            )
+plt.scatter(maxima, f(maxima),
+            s=70, color='green', label=f'$max$ $f(x)$, {iter_max} iterations'
+            )
 plt.tight_layout()
 plt.legend()
 plt.grid()
-plt.savefig('pics/search_optimize.png', dpi=300)
+plt.savefig('plots/search_optimize.png', dpi=300)
