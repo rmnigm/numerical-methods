@@ -40,13 +40,13 @@ print(f'min(f(x)) = {minima}, {iter_min} iterations with general formula')
 print(f'min(f(x)) = {minima_q}, {iter_min_q} iterations with quadratic formula')
 
 plt.subplots(figsize=(8, 6))
-plt.contourf(x, y, zv, cmap='gray')
+cset = plt.contourf(x, y, zv, cmap='gray')
 plt.scatter(minima[0], minima[1],
             s=70,
             color='red',
             label=f'$min$ $f(x)$, {iter_min} iterations')
 plt.axis('scaled')
-plt.colorbar()
+plt.colorbar(cset)
 plt.tight_layout()
 plt.legend()
 plt.savefig('plots/conjucate_grad.png', dpi=300)

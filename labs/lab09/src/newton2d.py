@@ -21,9 +21,9 @@ xv, yv = np.meshgrid(x, y)
 zv = ff(xv, yv)
 
 plt.subplots(figsize=(7, 6))
-plt.contourf(x, y, zv)
+cset = plt.contourf(x, y, zv)
 plt.axis('scaled')
-plt.colorbar()
+plt.colorbar(cset)
 plt.savefig('plots/newton2d_levels.png', dpi=300)
 
 print('Enter starting points in format < x y >:')
@@ -34,9 +34,9 @@ maxima, iter_max = newton_optimize_vec(func=f, bbox=bbox, start=start,
                                        eps=1e-6, minimize=False)
 
 fig, ax = plt.subplots(figsize=(7, 6))
-plt.contour(x, y, zv)
+cset = plt.contour(x, y, zv)
 plt.axis('scaled')
-plt.colorbar()
+plt.colorbar(cset)
 plt.scatter(minima[0], minima[1],
             s=70,
             color='red',
