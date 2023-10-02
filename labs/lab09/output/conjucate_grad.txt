@@ -1,2 +1,2 @@
-min(f(x)) = [3. 1.], 2 iterations with general formula method
-min(f(x)) = [3. 1.], 2 iterations with quadratic formula method
+min(f(x)) = [3. 1.], 2 iterations with general formula
+min(f(x)) = [3. 1.], 2 iterations with quadratic formula
