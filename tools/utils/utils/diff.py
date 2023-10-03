@@ -8,6 +8,12 @@ def deriv(func: Callable[[float], float],
     return (func(point + eps) - func(point - eps)) / 2 * eps
 
 
+def deriv2(func: Callable[[float], float],
+           point: float,
+           eps: float = 1e-5) -> float:
+    return (func(point + eps) - 2 * func(point) + func(point - eps)) / (eps ** 2)
+
+
 def grad(f: Callable[[np.ndarray], np.ndarray],
          x: np.ndarray,
          eps: float = 1e-5) -> np.ndarray:
