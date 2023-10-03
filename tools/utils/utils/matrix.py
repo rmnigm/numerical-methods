@@ -1,16 +1,15 @@
 from typing import Optional, Union
 
-import numpy.typing as npt
 import numpy as np
 
 from .sparse_matrix import SparseMatrix
 
 
-def seidel(a: Union[npt.NDArray, SparseMatrix],
-           b: npt.NDArray,
-           x: Optional[npt.NDArray] = None,
+def seidel(a: Union[np.ndarray, SparseMatrix],
+           b: np.ndarray,
+           x: Optional[np.ndarray] = None,
            eps: float = 1e-9,
-           max_iter: Optional[int] = None) -> tuple[npt.NDArray, int]:
+           max_iter: Optional[int] = None) -> tuple[np.ndarray, int]:
     """
     Seidel solver for system of linear equations.
 
@@ -31,18 +30,18 @@ def seidel(a: Union[npt.NDArray, SparseMatrix],
             s2 = sum(a[i, j] * x[j] for j in range(i + 1, n))
             x_new[i] = (b[i] - s1 - s2) / a[i, i]
         iter_cnt += 1
-        converge = np.linalg.norm(x_new - x, ord=np.inf) <= eps
+        converge = bool(np.linalg.norm(x_new - x, ord=np.inf) <= eps)
         if max_iter:
             converge = iter_cnt >= max_iter
         x = x_new
     return x, iter_cnt
 
 
-def simple_iterative(a: Union[npt.NDArray, SparseMatrix],
-                     b: npt.NDArray,
-                     x: Optional[npt.NDArray] = None,
+def simple_iterative(a: np.ndarray,
+                     b: np.ndarray,
+                     x: Optional[np.ndarray] = None,
                      eps: float = 1e-9,
-                     max_iter: Optional[int] = None) -> tuple[npt.NDArray, int]:
+                     max_iter: int = 1000) -> tuple[np.ndarray, int]:
     x = x if x is not None else np.zeros(len(a))
     L = np.tril(a, -1)
     U = np.triu(a, 1)
@@ -69,10 +68,10 @@ def lstsq(X, Y, m):
     return np.linalg.solve(G, b)
 
 
-def tridiagonal_solve(a: np.array,
-                      b: np.array,
-                      c: np.array,
-                      d: np.array) -> np.array:
+def tridiagonal_solve(a: np.ndarray,
+                      b: np.ndarray,
+                      c: np.ndarray,
+                      d: np.ndarray) -> np.ndarray:
     for it in range(1, len(d)):
         mc = a[it - 1] / b[it - 1]
         b[it] = b[it] - mc * c[it - 1]
