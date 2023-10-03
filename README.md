@@ -11,6 +11,8 @@ They are used in homework for Numerical Methods course in 3rd year of Applied Ma
 5. Solving systems of linear equations with iterative methods
 6. Function approximation
 7. Solving ordinary differential equations
+8. Skipped that one.
+9. Function optimization
 
 ## How to setup (Unix)
 - Clone repository to local machine
