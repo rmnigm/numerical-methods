@@ -8,9 +8,9 @@ def deriv(func: Callable[[float], float],
     return (func(point + eps) - func(point - eps)) / 2 * eps
 
 
-def grad(f: Callable[[np.array], np.array],
-         x: np.array,
-         eps: float = 1e-5) -> np.array:
+def grad(f: Callable[[np.ndarray], np.ndarray],
+         x: np.ndarray,
+         eps: float = 1e-5) -> np.ndarray:
     dim = len(x)
     grad_vector = np.zeros((dim, ), dtype=np.double)
     for i in range(dim):
@@ -20,9 +20,9 @@ def grad(f: Callable[[np.array], np.array],
     return grad_vector
 
 
-def hessian(f: Callable[[np.array], np.array],
-            x: np.array,
-            eps: float = 1e-5) -> np.array:
+def hessian(f: Callable[[np.ndarray], np.ndarray],
+            x: np.ndarray,
+            eps: float = 1e-5) -> np.ndarray:
     dim = len(x)
     hess = np.zeros((dim, dim), dtype=np.double)
     for i in range(dim):
@@ -37,10 +37,10 @@ def hessian(f: Callable[[np.array], np.array],
     return hess
 
 
-def jacobian(f: Callable[[np.array], np.array],
-             x: np.array,
+def jacobian(f: Callable[[np.ndarray], np.ndarray],
+             x: np.ndarray,
              f_cnt: int,
-             eps: float = 1e-5) -> np.array:
+             eps: float = 1e-5) -> np.ndarray:
     jac = np.zeros((f_cnt, len(x)), dtype=np.double)
     for i in range(len(x)):
         delta = np.zeros(len(x))
