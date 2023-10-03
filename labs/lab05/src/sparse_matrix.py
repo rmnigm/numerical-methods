@@ -4,14 +4,11 @@ from typing import Dict, Tuple
 
 
 class SparseMatrix:
-    """Sparse matrix class"""
+    """Sparse matrix class based on dict of nonzero values"""
     
     def __init__(self,
                  data: Dict[Tuple[int, int], float] = None,
                  n: int = 2):
-        """
-        :param data: A dictionary of (i, j) -> value
-        """
         self.data = data or {}
         self.n = n
 
@@ -35,20 +32,11 @@ class SparseMatrix:
     def __setitem__(self, key: Tuple[int, int], value: float):
         self.data[key] = value
 
-    def __delitem__(self, key: Tuple[int, int]):
-        del self.data[key]
-
     def __iter__(self):
         return iter(self.data.items())
 
     def __len__(self):
         return self.n
-
-    def __str__(self):
-        return str(self.data)
-
-    def __repr__(self):
-        return repr(self.data)
 
     def __add__(self, other: "SparseMatrix") -> "SparseMatrix":
         result = SparseMatrix()
@@ -108,46 +96,3 @@ class SparseMatrix:
 
     def __ne__(self, other: "SparseMatrix") -> bool:
         return self.data != other.data
-
-    def __lt__(self, other: "SparseMatrix") -> bool:
-        return self.data < other.data
-
-    def __le__(self, other: "SparseMatrix") -> bool:
-        return self.data <= other.data
-
-    def __gt__(self, other: "SparseMatrix") -> bool:
-        return self.data > other.data
-
-    def __ge__(self, other: "SparseMatrix") -> bool:
-        return self.data >= other.data
-
-    def __abs__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = abs(self[key])
-        return result
-
-    def __round__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = round(self[key])
-        return result
-
-    def __floor__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = math.floor(self[key])
-        return result
-
-    def __ceil__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = math.ceil(self[key])
-        return result
-
-    def __trunc__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = math.trunc(self[key])
-        return result
-
