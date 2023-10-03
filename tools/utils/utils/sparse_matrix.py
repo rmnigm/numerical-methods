@@ -1,22 +1,18 @@
-import math
 import numpy as np
 
-from typing import Dict, Tuple
+import typing as tp
 
 
 class SparseMatrix:
-    """Sparse matrix class"""
+    """Sparse matrix class based on dict of nonzero values"""
     
     def __init__(self,
-                 data: Dict[Tuple[int, int], float] = None,
+                 data: tp.Optional[tp.Dict[tp.Tuple[int, int], float]] = None,
                  n: int = 2):
-        """
-        :param data: A dictionary of (i, j) -> value
-        """
         self.data = data or {}
         self.n = n
     
-    def from_dense_matrix(self, matrix) -> "SparseMatrix":
+    def from_dense_matrix(self, matrix: np.ndarray) -> "SparseMatrix":
         self.n = len(matrix)
         for i in range(len(matrix)):
             for j in range(len(matrix[0])):
@@ -24,32 +20,24 @@ class SparseMatrix:
                     self[(i, j)] = matrix[i][j]
         return self
     
-    def dense(self) -> "SparseMatrix":
+    def dense(self) -> np.ndarray:
         res = np.zeros((self.n, self.n))
         for (i, j), v in self.data.items():
             res[i, j] = v
         return res
     
-    def __getitem__(self, key: Tuple[int, int]) -> float:
+    def __getitem__(self, key: tp.Tuple[int, int]) -> float:
         return self.data.get(key, 0)
     
-    def __setitem__(self, key: Tuple[int, int], value: float):
+    def __setitem__(self, key: tp.Tuple[int, int], value: float):
         self.data[key] = value
     
-    def __delitem__(self, key: Tuple[int, int]):
-        del self.data[key]
-    
-    def __iter__(self):
-        return iter(self.data.items())
+    def __iter__(self) -> tp.Iterator[tp.Tuple[int, int]]:
+        items: tp.Iterable = self.data.items()
+        return iter(items)
     
     def __len__(self):
         return self.n
-    
-    def __str__(self):
-        return str(self.data)
-    
-    def __repr__(self):
-        return repr(self.data)
     
     def __add__(self, other: "SparseMatrix") -> "SparseMatrix":
         result = SparseMatrix()
@@ -104,50 +92,12 @@ class SparseMatrix:
             result[key] = other ** self[key]
         return result
     
-    def __eq__(self, other: "SparseMatrix") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, SparseMatrix):
+            return NotImplemented
         return self.data == other.data
     
-    def __ne__(self, other: "SparseMatrix") -> bool:
-        return self.data != other.data
-    
-    def __lt__(self, other: "SparseMatrix") -> bool:
-        return self.data < other.data
-    
-    def __le__(self, other: "SparseMatrix") -> bool:
-        return self.data <= other.data
-    
-    def __gt__(self, other: "SparseMatrix") -> bool:
-        return self.data > other.data
-    
-    def __ge__(self, other: "SparseMatrix") -> bool:
-        return self.data >= other.data
-    
-    def __abs__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = abs(self[key])
-        return result
-    
-    def __round__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = round(self[key])
-        return result
-    
-    def __floor__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = math.floor(self[key])
-        return result
-    
-    def __ceil__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = math.ceil(self[key])
-        return result
-    
-    def __trunc__(self) -> "SparseMatrix":
-        result = SparseMatrix()
-        for key in self:
-            result[key] = math.trunc(self[key])
-        return result
+    def __ne__(self, other: object) -> bool:
+        if not isinstance(other, SparseMatrix):
+            return NotImplemented
+        return self.data == other.data
