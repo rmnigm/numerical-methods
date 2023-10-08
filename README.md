@@ -13,6 +13,7 @@ They are used in homework for Numerical Methods course in 3rd year of Applied Ma
 7. Solving ordinary differential equations
 8. Skipped that one.
 9. Function optimization
+10. Solving partial differential equations
 
 ## How to setup (Unix)
 - Clone repository to local machine
