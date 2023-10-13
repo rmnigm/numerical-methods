@@ -17,7 +17,7 @@ They are used in homework for Numerical Methods course in 3rd year of Applied Ma
 
 ## How to setup (Unix)
 - Clone repository to local machine
-- Install Pyenv using [this guide](https://github.com/pyenv/pyenv#installation)
+- Install Pyenv using [this guide](https://github.com/pyenv/pyenv#installation) and install [Poetry](https://python-poetry.org)
 - Install Python, used in project
   ```bash
   $ pyenv install 3.10.6
