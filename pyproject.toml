@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "numerical-methods"
+version = "0.1.0"
+description = "micro module with numerical methods implementation"
+authors = ["rmnigm"]
+readme = "README.md"
+packages = [{include = "numerical_methods"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+ruff = "^0.0.292"
+pytest = "^7.4.2"
+pytest-timeout = "^2.1.0"
+matplotlib = "^3.8.0"
+numba = "0.58.0"
+numpy = ">=1.21,<1.26"
+scipy = "^1.11.3"
+sympy = "^1.12"
+mypy = "^1.6.0"
+flake8 = "^6.1.0"
+seaborn = "^0.13.0"
+utils = {path = "tools/utils", develop = true}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

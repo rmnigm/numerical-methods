@@ -5,7 +5,7 @@ from typing import Callable
 def deriv(func: Callable[[float], float],
           point: float,
           eps: float = 1e-5) -> float:
-    return (func(point + eps) - func(point - eps)) / 2 * eps
+    return (func(point + eps) - func(point - eps)) / (2 * eps)
 
 
 def deriv2(func: Callable[[float], float],
