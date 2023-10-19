@@ -42,4 +42,4 @@ x, u, left, right = solutions[0]
 plt.plot(x, u, label='Base solution')
 plt.plot(x + errors, u, label='Precise solution')
 plt.legend()
-plt.savefig('finite_diff.png', dpi=300)
+plt.savefig('plots/finite_diff.png', dpi=300)
