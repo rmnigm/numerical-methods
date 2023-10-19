@@ -23,23 +23,23 @@ def k3(k_1, k_2, k_3):
 
 
 options = [
-    {'name': '$k_1 << k_2$', 'k': k2(5, 30), 'f': delta_f((a + b) / 2, 10)},
-    {'name': '$k_1 >> k_2$', 'k': k2(30, 5), 'f': delta_f((a + b) / 2, 10)},
-    {'name': '$k_1 < k_2 < k_3$', 'k': k3(1, 10, 40), 'f': delta_f((a + b) / 2, 10)},
-    {'name': '$k_1 = 10k_2 = k_3$', 'k': k3(40, 10, 1), 'f': delta_f((a + b) / 2, 10)},
-    {'name': '$100k_1 = k_2 = 100k_3$', 'k': k3(1, 10, 40), 'f': delta_f((a + b) / 2, 10)},
-    {'name': 'two symmetrical equal $f(x)$', 'k': k2(5, 30),
-        'f': lambda x: delta_f((a + b) / 3, 10)(x) + delta_f(2 * (a + b) / 3, 10)(x)},
-    {'name': 'two symmetrical not equal $f(x)$', 'k': k2(5, 30),
-        'f': lambda x: delta_f((a + b) / 3, 10)(x) + delta_f(2 * (a + b) / 3, 50)(x)},
-    {'name': 'custom $f(x)$', 'k': k2(5, 30),
-        'f': lambda x: delta_f((a + b) / 10, 50)(x) + delta_f(2 * (a + b) / 5, 100)(x)},
+    ('$k_1 << k_2$', k2(5, 30), delta_f((a + b) / 2, 10)),
+    ('$k_1 >> k_2$', k2(30, 5), delta_f((a + b) / 2, 10)),
+    ('$k_1 < k_2 < k_3$', k3(1, 10, 40), delta_f((a + b) / 2, 10)),
+    ('$k_1 = 10k_2 = k_3$', k3(40, 10, 1), delta_f((a + b) / 2, 10)),
+    ('$100k_1 = k_2 = 100k_3$', k3(1, 10, 40), delta_f((a + b) / 2, 10)),
+    ('two symmetrical equal $f(x)$', k2(5, 30),
+        lambda x: delta_f((a + b) / 3, 10)(x) + delta_f(2 * (a + b) / 3, 10)(x)),
+    ('two symmetrical not equal $f(x)$', k2(5, 30),
+        lambda x: delta_f((a + b) / 3, 10)(x) + delta_f(2 * (a + b) / 3, 50)(x)),
+    ('custom $f(x)$', k2(5, 30),
+        lambda x: delta_f((a + b) / 10, 50)(x) + delta_f(2 * (a + b) / 5, 100)(x)),
 ]
 solutions = []
 
 fig, ax = plt.subplots(figsize=(10, 15), nrows=4, ncols=2, sharex=True, sharey=True)
 for j, option in enumerate(options):
-    name, k, f = option['name'], option['k'], option['f']
+    name, k, f = option
     left = np.zeros((n, n))
     right = np.zeros(n)
     x = np.linspace(a, b, n, endpoint=True)
