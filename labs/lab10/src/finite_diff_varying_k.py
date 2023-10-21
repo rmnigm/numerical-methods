@@ -4,7 +4,7 @@ import scipy.sparse.linalg
 from scipy.integrate import quad
 import matplotlib.pyplot as plt
 
-n = 151
+n = 150
 a, b = 2.2, 4.2
 ua, ub = 0.2, 4
 h = (a - b) / n
@@ -41,16 +41,15 @@ solutions = []
 fig, ax = plt.subplots(figsize=(10, 15), nrows=4, ncols=2, sharex=True, sharey=True)
 for j, option in enumerate(options):
     name, k, f = option
-    left = np.zeros((n, n))
-    right = np.zeros(n)
+    left = np.zeros((n, n), dtype=np.float64)
+    right = np.zeros(n, dtype=np.float64)
     x = np.linspace(a, b, n, endpoint=True)
     
     for i in range(1, n - 1):
-        k_mean_right = 1 / (quad(lambda x: 1 / k(x), x[i], x[i + 1])[0] * h)
-        k_mean_left = 1 / (quad(lambda x: 1 / k(x), x[i - 1], x[i])[0] * h)
-        # left[i][i] = k((x[i] + x[i + 1]) / 2) + k((x[i] + x[i - 1]) / 2)
-        # left[i][i - 1] = - k((x[i] + x[i - 1]) / 2)
-        # left[i][i + 1] = - k((x[i] + x[i + 1]) / 2)
+        # k_mean_right = 1 / (quad(lambda x: 1 / k(x), x[i], x[i + 1])[0] / h)
+        k_mean_right = k((x[i] + x[i + 1]) / 2)
+        # k_mean_left = 1 / (quad(lambda x: 1 / k(x), x[i - 1], x[i])[0] / h)
+        k_mean_left = k((x[i] + x[i - 1]) / 2)
         left[i][i] = k_mean_left + k_mean_right
         left[i][i - 1] = - k_mean_left
         left[i][i + 1] = - k_mean_right

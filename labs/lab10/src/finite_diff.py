@@ -8,13 +8,13 @@ q = lambda x: 0.5
 
 solutions = []
 base_n = 100
-for i, n in enumerate([base_n + 1, 2 * base_n + 1]):
+for i, n in enumerate([base_n, 2 * base_n]):
     a, b = 2.2, 4.2
     ua, ub = 0.2, 4
     h = (a - b) / n
     
-    left = np.zeros((n, n))
-    right = np.zeros(n)
+    left = np.zeros((n, n), dtype=np.float64)
+    right = np.zeros(n, dtype=np.float64)
     x = np.linspace(a, b, n, endpoint=True)
     
     for i in range(1, n - 1):
@@ -37,7 +37,7 @@ for i, n in enumerate([base_n + 1, 2 * base_n + 1]):
 
 errors = (solutions[1][1][::2] - solutions[0][1]) / 3
 max_error = np.abs(errors).max()
-print(f'Error = {max_error:.3f} {"<" if max_error < 3e-2 else ">"} {3e-2}')
+print(f'Error = {max_error:.4f} {"<" if max_error < 0.03 else ">"} {3e-2}')
 x, u, left, right = solutions[0]
 plt.plot(x, u, label='Base solution')
 plt.plot(x + errors, u, label='Precise solution')
