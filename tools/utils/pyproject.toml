@@ -17,6 +17,7 @@ mypy = "^1.6.0"
 pytest = "^7.4.2"
 flake8 = "^6.1.0"
 pytest-timeout = "^2.1.0"
+flake8-pyproject = "^1.2.3"
 
 
 [build-system]
@@ -25,16 +26,14 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.flake8]
-max_line_length = 120
+max-line-length = 120
 max-doc-length = 120
 exclude = "test_*.py"
 
 [tool.pytest.ini_options]
 timeout = 60
 python_files = "test_*.py"
-testpaths = [
-    "tests"
-]
+testpaths = ["tests"]
 
 [tool.mypy]
 no_incremental = true
@@ -43,5 +42,4 @@ warn_unreachable = true
 exclude = [
     "tests/",
     ".tmp/",
-    ".venv/"
-]
+    ".venv/"]

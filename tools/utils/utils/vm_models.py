@@ -1,7 +1,7 @@
 from math import ceil
 
 
-def fixed_bit_depth(x, m):
+def fixed_bit_depth(x: float, m: int) -> float:
     p = 0
     while x >= 1:
         x /= 10

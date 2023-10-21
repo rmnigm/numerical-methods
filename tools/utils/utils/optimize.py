@@ -1,14 +1,16 @@
 import numpy as np
+
 import typing as tp
 
 from .diff import deriv, deriv2, grad, hessian, jacobian
 
 
-def point_in_area(point: np.ndarray, bbox: tp.Tuple[np.ndarray, np.ndarray]):
+def point_in_area(point: np.ndarray,
+                  bbox: tuple[np.ndarray, np.ndarray]) -> bool:
     return bbox[0][0] < point[0] < bbox[1][0] and bbox[0][1] < point[1] < bbox[1][1]
 
 
-def fibonacci(func: tp.Callable,
+def fibonacci(func: tp.Callable[[float], float],
               interval: tuple[float, float],
               eps: float = 1e-5,
               minimize: bool = True) -> tuple[float, int]:
@@ -33,7 +35,7 @@ def fibonacci(func: tp.Callable,
 
 def newton_root_vec(f: tp.Callable[[np.ndarray], np.ndarray],
                     initial: np.ndarray,
-                    eps: float = 1e-6) -> tp.Tuple[np.ndarray, int]:
+                    eps: float = 1e-6) -> tuple[np.ndarray, int]:
     x = initial.astype(np.double)
     iter_cnt = 0
     f_cnt = len(f(initial))
@@ -61,7 +63,7 @@ def newton_optimize_vec(func: tp.Callable[[np.ndarray], np.ndarray],
     return x, iter_cnt
 
 
-def newton_root_scal(func: tp.Callable,
+def newton_root_scal(func: tp.Callable[[float], float],
                      interval: tuple[float, float],
                      eps: float = 1e-5,
                      m: int = 1) -> tuple[float, int]:
@@ -88,7 +90,7 @@ def newton_optimize_scal(func: tp.Callable[[tp.Any], tp.Any],
     return x, cnt
 
 
-def bisection_root_scal(f: tp.Callable,
+def bisection_root_scal(f: tp.Callable[[float], float],
                         interval: tuple[float, float],
                         eps: float = 1e-5) -> float:
     a, b = interval
@@ -106,7 +108,8 @@ def conjucate_grad_minimize(func: tp.Callable[[np.ndarray], np.ndarray],
                             start: np.ndarray,
                             eps: float = 1e-5) -> tuple[np.ndarray, int]:
     x = start.astype(np.double)
-    x_prev, h_prev = None, None
+    x_prev: tp.Optional[np.ndarray] = None
+    h_prev: tp.Optional[np.ndarray] = None
     iter_cnt = 0
     h = -grad(func, x)
     while np.linalg.norm(grad(func, x)) > eps:
@@ -123,7 +126,6 @@ def conjucate_grad_minimize(func: tp.Callable[[np.ndarray], np.ndarray],
         x += alpha * h
         h_prev = h.copy()
         iter_cnt += 1
-    
     return x, iter_cnt
 
 
@@ -132,7 +134,7 @@ def conjucate_grad_quadratic_minimize(func: tp.Callable[[np.ndarray], np.ndarray
                                       start: np.ndarray,
                                       eps: float = 1e-5) -> tuple[np.ndarray, int]:
     x = start.astype(np.double)
-    h_prev = None
+    h_prev: tp.Optional[np.ndarray] = None
     iter_cnt = 0
     h = -grad(func, x)
     while np.linalg.norm(grad(func, x)) > eps:
@@ -148,5 +150,4 @@ def conjucate_grad_quadratic_minimize(func: tp.Callable[[np.ndarray], np.ndarray
         x += alpha * h
         h_prev = h.copy()
         iter_cnt += 1
-    
     return x, iter_cnt

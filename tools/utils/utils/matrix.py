@@ -1,15 +1,15 @@
-from typing import Optional, Union
-
 import numpy as np
+
+import typing as tp
 
 from .sparse_matrix import SparseMatrix
 
 
-def seidel(a: Union[np.ndarray, SparseMatrix],
+def seidel(a: np.ndarray | SparseMatrix,
            b: np.ndarray,
-           x: Optional[np.ndarray] = None,
+           x: tp.Optional[np.ndarray] = None,
            eps: float = 1e-9,
-           max_iter: Optional[int] = None) -> tuple[np.ndarray, int]:
+           max_iter: tp.Optional[int] = None) -> tuple[np.ndarray, int]:
     """
     Seidel solver for system of linear equations.
 
@@ -39,7 +39,7 @@ def seidel(a: Union[np.ndarray, SparseMatrix],
 
 def simple_iterative(a: np.ndarray,
                      b: np.ndarray,
-                     x: Optional[np.ndarray] = None,
+                     x: tp.Optional[np.ndarray] = None,
                      eps: float = 1e-9,
                      max_iter: int = 1000) -> tuple[np.ndarray, int]:
     x = x if x is not None else np.zeros(len(a))
@@ -58,13 +58,15 @@ def simple_iterative(a: np.ndarray,
     return x_new, max_iter
 
 
-def lstsq(X, Y, m):
+def lstsq(x: np.ndarray,
+          y: np.ndarray,
+          m: int) -> np.ndarray:
     b = np.zeros(m)
     G = np.zeros((m, m))
     for j in range(m):
-        b[j] = sum(y * x ** j for y, x in zip(Y, X))
+        b[j] = sum(yy * xx ** j for yy, xx in zip(y, x))
         for k in range(m):
-            G[j, k] = sum(x ** (k + j) for x in X)
+            G[j, k] = sum(xx ** (k + j) for xx in x)
     return np.linalg.solve(G, b)
 
 
