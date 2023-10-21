@@ -1,7 +1,6 @@
 import numpy as np
 import scipy.sparse as sps
 import scipy.sparse.linalg
-from scipy.integrate import quad
 import matplotlib.pyplot as plt
 
 n = 150
@@ -46,9 +45,7 @@ for j, option in enumerate(options):
     x = np.linspace(a, b, n, endpoint=True)
     
     for i in range(1, n - 1):
-        # k_mean_right = 1 / (quad(lambda x: 1 / k(x), x[i], x[i + 1])[0] / h)
         k_mean_right = k((x[i] + x[i + 1]) / 2)
-        # k_mean_left = 1 / (quad(lambda x: 1 / k(x), x[i - 1], x[i])[0] / h)
         k_mean_left = k((x[i] + x[i - 1]) / 2)
         left[i][i] = k_mean_left + k_mean_right
         left[i][i - 1] = - k_mean_left
