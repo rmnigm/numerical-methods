@@ -35,9 +35,5 @@ jobs:
     - name: Test with pytest and lint with flake8
       run: |
         cd tools/utils
-        python -m poetry run pytest utils
-
-    - name: Test with pytest and lint with flake8
-      run: |
-        cd tools/utils
+        python -m poetry run pytest
         python -m poetry run flake8 utils
