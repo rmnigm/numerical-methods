@@ -1,8 +1,4 @@
-import numpy as np
 import sympy as sp
-import matplotlib.pyplot as plt
-import typing as tp
-
 
 x = sp.Symbol('x')
 c, c1, c2 = sp.symbols('c c1 c2')
