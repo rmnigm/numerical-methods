@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Python application
+name: Testing
 
 on:
   push:
@@ -32,8 +32,13 @@ jobs:
         cd tools/utils
         python -m poetry install
 
-    - name: Test with pytest and lint with flake8
+    - name: Test with pytest
       run: |
         cd tools/utils
         python -m poetry run pytest
         python -m poetry run flake8 utils
+    - name: Lint project with flake8 and mypy
+      run: |
+        cd tools/utils
+        python -m poetry run flake8 utils
+        python -m poetry run mypy utils
