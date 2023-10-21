@@ -1,4 +1,5 @@
 # numerical-methods
+![build status](https://github.com/rmnigm/numerical-methods/actions/workflows/ci.yml/badge.svg)
 ## What is it
 This is a repository containing numerical algorithms, written in Python and C++.
 They are used in homework for Numerical Methods course in 3rd year of Applied Math undergraduate program in HSE University. Homeworks are mostly annotated in russian.
