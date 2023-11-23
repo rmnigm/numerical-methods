@@ -36,7 +36,6 @@ jobs:
       run: |
         cd tools/utils
         python -m poetry run pytest
-        python -m poetry run flake8 utils
     - name: Lint project with flake8 and mypy
       run: |
         cd tools/utils
